@@ -24,16 +24,19 @@ get "/news" do
     @forecast = ForecastIO.forecast(lat_long[0],lat_long[1]).to_hash
     @current_temperature = @forecast["currently"]["temperature"]
     @current_summary = @forecast["currently"]["summary"]
-
+    @icon = @forecast["currently"]["icon"]
+    
     # Declare arrays for forecast data
     @forecast_temperature = Array.new
     @forecast_summary = Array.new
+    @forecast_icon = Array.new
 
     # For loop to create arrays for weather API
     i = 0
     for day in @forecast["daily"]["data"] do
         @forecast_temperature[i] = day["temperatureHigh"]
         @forecast_summary[i] = day["summary"]
+        @forecast_icon[i] = day["icon"]
         i = i+1
     end
 
@@ -55,6 +58,7 @@ get "/news" do
     @month = time.month
     @day = time.day
     @date = Date.new(@year, @month, @day)
+
     view "news"
 
 end

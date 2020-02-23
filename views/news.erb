@@ -51,7 +51,28 @@
         <div class = "row">
             <div class = "col">
                 <p>Temperature: <%=@current_temperature%> </p>
-                <p>Conditions: <%=@current_summary%> </p>
+                <p>Conditions: <%=@current_summary  %>
+                <% if @icon == "cloudy" %>
+                    <i class="fas fa-cloud"></i>
+                <% elsif @icon == "rain" %>
+                    <i class="fas fa-cloud-rain"></i>
+                <% elsif @icon == "fog" %>
+                    <i class="fas fa-smog"></i>
+                <% elsif @icon == "partly-cloudy-night" %>
+                    <i class="fas fa-cloud-moon"></i>
+                <% elsif @icon == "partly-cloudy-day" %>
+                    <i class="fas fa-cloud-sun"></i>
+                <% elsif @icon == "clear-day" %>
+                    <i class="fas fa-sun"></i>
+                <% elsif @icon == "clear-night" %>
+                    <i class="fas fa-moon"></i>
+                <% elsif @icon == "sleet" %>
+                    <i class="fas fa-cloud-showers-heavy"></i>
+                <% elsif @icon == "snow" %>
+                    <i class="fas fa-snowflake"></i>
+                <% elsif @icon == "wind" %>
+                    <i class="fas fa-wind"></i>
+                <% end %> </p>
             </div>
         </div>
         <hr>
@@ -69,9 +90,31 @@
                         <tbody>
                             <% @forecast_temperature.zip(@forecast_summary).each do |forecasttemp, forecastcond| %>
                                 <tr>
-                                <td><p><%= @forecast_temperature.index(forecasttemp)+1 %></p></td>
+                                <td><p><%=@forecast_temperature.index(forecasttemp)+1 %></p></td>
                                 <td><p><%= forecasttemp %></p></td>
-                                <td><p><%= forecastcond %></p></td>
+                                <td><p><%= forecastcond %>
+                                    <% if @forecast_icon[@forecast_temperature.index(forecasttemp)] == "cloudy" %>
+                                        <i class="fas fa-cloud"></i>
+                                    <% elsif @forecast_icon[@forecast_temperature.index(forecasttemp)] == "rain" %>
+                                        <i class="fas fa-cloud-rain"></i>
+                                    <% elsif @forecast_icon[@forecast_temperature.index(forecasttemp)] == "fog" %>
+                                        <i class="fas fa-smog"></i>
+                                    <% elsif @forecast_icon[@forecast_temperature.index(forecasttemp)] == "partly-cloudy-night" %>
+                                        <i class="fas fa-cloud-moon"></i>
+                                    <% elsif @forecast_icon[@forecast_temperature.index(forecasttemp)] == "partly-cloudy-day" %>
+                                        <i class="fas fa-cloud-sun"></i>
+                                    <% elsif @forecast_icon[@forecast_temperature.index(forecasttemp)] == "clear-day" %>
+                                        <i class="fas fa-sun"></i>
+                                    <% elsif @forecast_icon[@forecast_temperature.index(forecasttemp)] == "clear-night" %>
+                                        <i class="fas fa-moon"></i>
+                                    <% elsif @forecast_icon[@forecast_temperature.index(forecasttemp)] == "sleet" %>
+                                        <i class="fas fa-cloud-showers-heavy"></i>
+                                    <% elsif @forecast_icon[@forecast_temperature.index(forecasttemp)] == "snow" %>
+                                        <i class="fas fa-snowflake"></i>
+                                    <% elsif @forecast_icon[@forecast_temperature.index(forecasttemp)] == "wind" %>
+                                        <i class="fas fa-wind"></i>
+                                    <% end %> 
+                                </p></td>
                                 </tr>
                             <% end %>
                         </tbody>
