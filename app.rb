@@ -3,6 +3,7 @@ require "sinatra/reloader"
 require "geocoder"
 require "forecast_io"
 require "httparty"
+require "date"
 def view(template); erb template.to_sym; end
 before { puts "Parameters: #{params}" }                                     
 
@@ -15,15 +16,20 @@ get "/" do
 end
 
 get "/news" do
+    # Convert inputted location in form to coordinates
     results = Geocoder.search(params["q"])
     lat_long = results.first.coordinates
+
+    # Get lat-long for weather API and store current weather
     @forecast = ForecastIO.forecast(lat_long[0],lat_long[1]).to_hash
     @current_temperature = @forecast["currently"]["temperature"]
     @current_summary = @forecast["currently"]["summary"]
 
+    # Declare arrays for forecast data
     @forecast_temperature = Array.new
     @forecast_summary = Array.new
 
+    # For loop to create arrays for weather API
     i = 0
     for day in @forecast["daily"]["data"] do
         @forecast_temperature[i] = day["temperatureHigh"]
@@ -31,19 +37,24 @@ get "/news" do
         i = i+1
     end
 
-    @source_name = Array.new
+    # Declare arrays for news API
     @title = Array.new
-    @description = Array.new
     @story_url = Array.new
     a = 0
+
+    # For loop to create arrays from news API
     for story in news["articles"] do
-        @source_name[a] = story["source"]["name"]
         @title[a] = story["title"]
-        @description[a] = story["description"]
         @story_url[a] = story["url"]
         a = a+1
     end
-    
-    view "ask"
+
+    # Display todays date for new headlines section
+    time = Time.new
+    @year = time.year
+    @month = time.month
+    @day = time.day
+    @date = Date.new(@year, @month, @day)
+    view "news"
 
 end

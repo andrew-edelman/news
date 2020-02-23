@@ -21,6 +21,7 @@
     <title>News</title>
   </head>
   <body>
+
     <div class="jumbotron" style = "background-image: url(https://www.metoffice.gov.uk/binaries/content/gallery/metofficegovuk/hero-images/weather/cloud/cumulus-cloud.jpg/cumulus-cloud.jpg/metofficegovuk%3AheroMedium)">
         <div class="container">
             <h1 class="display-4">Weather and Headlines</h1>
@@ -32,10 +33,56 @@
             <div class = "col">
                 <form action="/news">
                     <input type = "text" name="q">
-                    <button type = "submit">Enter Weather Location</submit>
+                    <button type = "submit">Change Weather Location</submit>
                 </form>
             </div>
         </div>         
+    </div>
+     
+    <div class="container mt-5">
+        
+        <h1>Current Weather</h1> <br>
+        <div class = "row">
+            <div class = "col">
+                <p>Temperature: <%=@current_temperature%> </p>
+                <p>Conditions: <%=@current_summary%> </p>
+            </div>
+        </div>
+        <h1>Forecast</h1> <br>
+        <div class = "row">
+                <div class = "col">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                            <th scope="col">Days Out</th>
+                            <th scope="col">Temperature (High)</th>
+                            <th scope="col">Conditions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @forecast_temperature.zip(@forecast_summary).each do |forecasttemp, forecastcond| %>
+                                <tr>
+                                <td><p><%= @forecast_temperature.index(forecasttemp)+1 %></p></td>
+                                <td><p><%= forecasttemp %></p></td>
+                                <td><p><%= forecastcond %></p></td>
+                                </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </div>
+                
+        </div>
+        <h1>National Headlines <%=@date%></h1><br>
+        <div class = "row">
+            <% @title.zip(@story_url).each do |title, url| %>
+                <div class="card-fluid">
+                        <div class="card-body">
+                            <h5 class="card-title"><%=title%></h5>
+                            <a href="<%=url%>" class="btn btn-primary">View Original Article</a>
+                        </div>
+                </div>  
+            <% end %>               
+        </div>
     </div>
 
     <!-- Optional JavaScript -->
