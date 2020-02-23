@@ -5,11 +5,5 @@ body {
 .card-fluid {
      background-color: rgb(235, 235, 235);
 }
-.jumbotron {
-    background-image: url(https://cdn.clipart.email/7e98c6c9bd03dc0f348bc39b31c7d992_generic-cityscape-silhouette-4-clipart-design-droide_2634-561.jpeg) center center no-repeat fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    font-family: 'Rye';
-}
+
+
